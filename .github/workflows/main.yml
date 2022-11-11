@@ -1,6 +1,9 @@
 name: clock-in
 on:
   workflow_dispatch:
+  issues:
+    types:
+      - labeled
   push:
     paths:
       - 'src/github/log/*'
@@ -10,3 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo hej
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@RELEASE_VERSION
+        with:
+          # You can target a repository in a different organization
+          # to the issue
+          project-url: https://github.com/orgs/<orgName>/projects/<projectNumber>
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+          labeled: bug, needs-triage
+          label-operator: OR
