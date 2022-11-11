@@ -1,14 +1,12 @@
+name: clock-in
 on:
-  issues:
-    types:
-      - opened
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/github/log/*'
 
 jobs:
-  label_issue:
+  clock-in:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
-        run: |
-          echo hello
+      - run: echo hej
